@@ -24,14 +24,15 @@ public class Main {
             Member member = new Member();
             member.setName("hsoh");
             member.setMemberType(MemberType.ADMIN);
-            member.setTeamId(team.getId());
+            member.setTeam(team);
             em.persist(member);
 
-            //
+            // 다른 로직
             Member findMember = em.find(Member.class, member.getId());
-            Long teamId = findMember.getTeamId();
 
-            Team findTeam = em.find(Team.class, teamId);
+            System.out.println("============================");
+            System.out.println(findMember.getTeam().getName());
+            System.out.println("============================");
 
             tx.commit();
         } catch (Exception e) {

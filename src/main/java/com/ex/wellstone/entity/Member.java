@@ -14,8 +14,9 @@ public class Member {
 
     private int age;
 
-    @Column(name = "TEAM_ID")
-    private Long teamId;
+    @ManyToOne
+    @JoinColumn(name = "TEAM_ID")
+    private Team team;
 
     @Enumerated(EnumType.STRING)
     private MemberType memberType;
@@ -44,12 +45,12 @@ public class Member {
         this.age = age;
     }
 
-    public Long getTeamId() {
-        return teamId;
+    public Team getTeam() {
+        return team;
     }
 
-    public void setTeamId(Long teamId) {
-        this.teamId = teamId;
+    public void setTeam(Team team) {
+        this.team = team;
     }
 
     public MemberType getMemberType() {
