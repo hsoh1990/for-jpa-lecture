@@ -1,6 +1,7 @@
 package com.ex.wellstone;
 
 import com.ex.wellstone.entity.Member;
+import com.ex.wellstone.entity.MemberType;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -14,13 +15,20 @@ public class Main {
         EntityTransaction tx = em.getTransaction();
         tx.begin();
 
-        Member member = new Member();
-        member.setId(100L);
-        member.setName("안녕 jpa");
-        em.persist(member);
+        try {
+            Member member = new Member();
+//            member.setId(100L);
+            member.setName("안녕 jpa");
+            member.setMemberType(MemberType.ADMIN);
 
-        tx.commit();
-        em.close();
+            em.persist(member);
+            tx.commit();
+        } catch (Exception e) {
+            tx.rollback();
+        } finally {
+            em.close();
+        }
+
         emf.close();
     }
 }
