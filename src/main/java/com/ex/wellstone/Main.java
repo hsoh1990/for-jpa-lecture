@@ -2,6 +2,7 @@ package com.ex.wellstone;
 
 import com.ex.wellstone.entity.Member;
 import com.ex.wellstone.entity.MemberType;
+import com.ex.wellstone.entity.Team;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -16,12 +17,22 @@ public class Main {
         tx.begin();
 
         try {
-            Member member = new Member();
-//            member.setId(100L);
-            member.setName("안녕 jpa");
-            member.setMemberType(MemberType.ADMIN);
+            Team team = new Team();
+            team.setName("teamA");
+            em.persist(team);
 
+            Member member = new Member();
+            member.setName("hsoh");
+            member.setMemberType(MemberType.ADMIN);
+            member.setTeamId(team.getId());
             em.persist(member);
+
+            //
+            Member findMember = em.find(Member.class, member.getId());
+            Long teamId = findMember.getTeamId();
+
+            Team findTeam = em.find(Team.class, teamId);
+
             tx.commit();
         } catch (Exception e) {
             tx.rollback();

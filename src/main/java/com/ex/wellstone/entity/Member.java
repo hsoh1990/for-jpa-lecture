@@ -9,10 +9,13 @@ public class Member {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "USERNAME", nullable = false, length = 20 )
+    @Column(name = "USERNAME")
     private String name;
 
     private int age;
+
+    @Column(name = "TEAM_ID")
+    private Long teamId;
 
     @Enumerated(EnumType.STRING)
     private MemberType memberType;
@@ -39,6 +42,14 @@ public class Member {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    public Long getTeamId() {
+        return teamId;
+    }
+
+    public void setTeamId(Long teamId) {
+        this.teamId = teamId;
     }
 
     public MemberType getMemberType() {
