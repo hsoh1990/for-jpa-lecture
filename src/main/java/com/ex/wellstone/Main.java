@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
@@ -27,12 +28,19 @@ public class Main {
             member.setTeam(team);
             em.persist(member);
 
+            em.flush();
+            em.clear();
+
             // 다른 로직
             Member findMember = em.find(Member.class, member.getId());
+            Team findTeam = findMember.getTeam();
 
             System.out.println("============================");
-            System.out.println(findMember.getTeam().getName());
+            System.out.println(findTeam.getName());
+
+            List<Member> members = findTeam.getMembers();
             System.out.println("============================");
+            members.forEach(member1 -> System.out.println("member1 => " + member1.toString()));
 
             tx.commit();
         } catch (Exception e) {

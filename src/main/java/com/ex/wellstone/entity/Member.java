@@ -14,7 +14,7 @@ public class Member {
 
     private int age;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "TEAM_ID")
     private Team team;
 
@@ -59,5 +59,16 @@ public class Member {
 
     public void setMemberType(MemberType memberType) {
         this.memberType = memberType;
+    }
+
+    @Override
+    public String toString() {
+        return "Member{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", age=" + age +
+                ", team=" + team +
+                ", memberType=" + memberType +
+                '}';
     }
 }
